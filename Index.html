@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freddy's 40th Birthday - Glamping RSVP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 50%, #2c1810 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 140, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(218, 165, 32, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #f4e9d8 0%, #e8dcc5 100%);
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.6),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+            position: relative;
+            z-index: 1;
+            border: 3px solid #8b4513;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #3d2817 0%, #5c3d2e 100%);
+            padding: 30px 30px 25px;
+            text-align: center;
+            border-bottom: 3px solid #d4a574;
+            border-radius: 5px 5px 0 0;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '🔥';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 32px;
+        }
+        
+        .header::after {
+            content: '🔥';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 32px;
+        }
+        
+        h1 {
+            font-size: 42px;
+            color: #f4a460;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #d4a574;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .date {
+            text-align: center;
+            color: #f4a460;
+            font-weight: 700;
+            font-size: 26px;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1.5px;
+        }
+        
+        .location {
+            text-align: center;
+            color: #d4a574;
+            font-weight: 600;
+            font-size: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .tagline-header {
+            text-align: center;
+            color: #d4a574;
+            font-style: italic;
+            font-size: 14px;
+            margin-top: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            letter-spacing: 0.5px;
+        }
+        
+        .map-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: #f4e9d8;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: 2px solid #5c3d2e;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        
+        .map-btn:hover {
+            background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+        }
+        
+        .form-content {
+            padding: 40px 35px;
+            background: linear-gradient(to bottom, #f4e9d8 0%, #e8dcc5 100%);
+        }
+        
+        .rsvp-deadline {
+            text-align: center;
+            font-weight: 700;
+            color: #8b4513;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(139, 69, 19, 0.1);
+            border: 3px dashed #8b4513;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rsvp-deadline::before {
+            content: '🎉 🎊 🎈 🎉 🎊 🎈 🎉 🎊 🎈 🎉 🎊 🎈 🎉 🎊 🎈 🎉 🎊 🎈';
+            position: absolute;
+            top: -2px;
+            left: -100%;
+            width: 200%;
+            font-size: 14px;
+            animation: ticker-top 15s linear infinite;
+            pointer-events: none;
+        }
+        
+        .rsvp-deadline::after {
+            content: '🎉 🎊 🎈 🎉 🎊 🎈 🎉 🎊 🎈 🎉 🎊 🎈 🎉 🎊 🎈 🎉 🎊 🎈';
+            position: absolute;
+            bottom: -2px;
+            right: -100%;
+            width: 200%;
+            font-size: 14px;
+            animation: ticker-bottom 15s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes ticker-top {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        
+        @keyframes ticker-bottom {
+            0% {
+                right: -100%;
+            }
+            100% {
+                right: 100%;
+            }
+        }
+        
+        .tagline {
+            text-align: center;
+            font-style: italic;
+            color: #5c3d2e;
+            margin-bottom: 30px;
+            font-size: 15px;
+            border-top: 1px solid #d4a574;
+            border-bottom: 1px solid #d4a574;
+            padding: 15px 0;
+            background: rgba(212, 165, 116, 0.1);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #3d2817;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #8b4513;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            background: #fff;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus {
+            outline: none;
+            border-color: #d4a574;
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.2);
+        }
+        
+        .radio-group {
+            margin-bottom: 25px;
+        }
+        
+        .radio-option {
+            background: linear-gradient(to right, rgba(139, 69, 19, 0.08), rgba(212, 165, 116, 0.08));
+            border: 2px solid #8b4513;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+        }
+        
+        .radio-option.accommodation-option {
+            flex-direction: column;
+        }
+        
+        .radio-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .radio-option::before {
+            content: '🏕️';
+            position: absolute;
+            right: 15px;
+            top: 20px;
+            font-size: 24px;
+            opacity: 0.3;
+            transition: all 0.3s;
+        }
+        
+        .radio-option.attendance-option::before {
+            content: '';
+        }
+        
+        .radio-option:hover {
+            border-color: #d4a574;
+            background: linear-gradient(to right, rgba(139, 69, 19, 0.12), rgba(212, 165, 116, 0.12));
+            transform: translateX(3px);
+        }
+        
+        .radio-option:hover::before {
+            opacity: 0.6;
+        }
+        
+        .radio-option input[type="radio"] {
+            margin-right: 14px;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: #8b4513;
+            flex-shrink: 0;
+        }
+        
+        .radio-option.selected {
+            border-color: #d4a574;
+            background: linear-gradient(to right, rgba(212, 165, 116, 0.2), rgba(244, 164, 96, 0.2));
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
+        }
+        
+        .radio-option.selected::before {
+            opacity: 1;
+        }
+        
+        .option-title {
+            font-weight: 700;
+            color: #3d2817;
+            font-size: 16px;
+        }
+        
+        .option-description {
+            font-size: 13px;
+            color: #5c3d2e;
+            margin-top: 4px;
+            font-style: italic;
+            line-height: 1.4;
+        }
+        
+        .more-info-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: #f4e9d8;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            border: 1px solid #5c3d2e;
+        }
+        
+        .more-info-btn:hover {
+            background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.3);
+        }
+        
+        .accommodation-section {
+            display: none;
+        }
+        
+        .accommodation-section.show {
+            display: block;
+        }
+        
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: #f4e9d8;
+            border: 2px solid #5c3d2e;
+            padding: 18px;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            font-family: Georgia, 'Times New Roman', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        button:hover:not(:disabled) {
+            background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+        }
+        
+        button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+        }
+        
+        .success-message h2 {
+            color: #2d5016;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .success-message p {
+            color: #5c3d2e;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        
+        .error-message {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+        }
+        
+        .error-message h2 {
+            color: #8b2500;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .error-message p {
+            color: #5c3d2e;
+            font-size: 18px;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+        
+        .emoji {
+            font-size: 56px;
+            margin-bottom: 25px;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(244, 233, 216, 0.3);
+            border-radius: 50%;
+            border-top-color: #f4e9d8;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .footer-note {
+            text-align: center;
+            font-style: italic;
+            color: #5c3d2e;
+            font-size: 13px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #d4a574;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="rsvpForm">
+            <div class="header">
+                <h1>Freddy's 40th</h1>
+                <div class="subtitle">Glamping Extravaganza</div>
+                <div class="date">18–19 July</div>
+                <div class="location">Bowerchalke, Salisbury • SP5 5DD</div>
+                <a href="https://www.google.com/maps/search/?api=1&query=Chalk+Valley+Camping+Bowerchalke+Salisbury+SP5+5DD" target="_blank" class="map-btn">View Map</a>
+                <div class="tagline-header">Wilderness Festival meets The Game Fair</div>
+            </div>
+            
+            <div class="form-content">
+                <div class="rsvp-deadline">
+                    Please RSVP by 1st April
+                </div>
+                
+                <form id="guestForm">
+                    <label for="name">Your Name(s) *</label>
+                    <input type="text" id="name" name="name" required placeholder="e.g. John & Sarah Smith">
+                    
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                    
+                    <label for="phone">Mobile Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="For updates">
+                    
+                    <label>Can you make it? *</label>
+                    <div class="radio-group">
+                        <label class="radio-option attendance-option">
+                            <input type="radio" name="attendance" value="Yes, I'll be there" required>
+                            <div>
+                                <div class="option-title">Yes, I'll be there</div>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-option attendance-option">
+                            <input type="radio" name="attendance" value="No, sadly can't attend" required>
+                            <div>
+                                <div class="option-title">No, sadly can't attend</div>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <div id="accommodationSection" class="accommodation-section">
+                        <label>Accommodation Preference *</label>
+                        <div class="radio-group">
+                            <label class="radio-option accommodation-option">
+                                <div class="radio-content">
+                                    <input type="radio" name="accommodation" value="Safari Tent - £360">
+                                    <div>
+                                        <div class="option-title">Safari Tent – £360</div>
+                                        <div class="option-description">Ultimate luxury - your own loo and shower, gas heating. Real nice like. Very limited - only two available.</div>
+                                    </div>
+                                </div>
+                                <a href="https://www.chalkevalleycamping.co.uk/safari-tent" target="_blank" class="more-info-btn">More Info</a>
+                            </label>
+                            
+                            <label class="radio-option accommodation-option">
+                                <div class="radio-content">
+                                    <input type="radio" name="accommodation" value="Private Bell Tent - £280">
+                                    <div>
+                                        <div class="option-title">Private Bell Tent – £280</div>
+                                        <div class="option-description">Private Canvas Palace. Double Bed, Campfire. Snuggly.</div>
+                                    </div>
+                                </div>
+                                <a href="https://chalkevalleycamping.co.uk/bell-tents/" target="_blank" class="more-info-btn">More Info</a>
+                            </label>
+                            
+                            <label class="radio-option accommodation-option">
+                                <div class="radio-content">
+                                    <input type="radio" name="accommodation" value="Shared Bell Tent - £280">
+                                    <div>
+                                        <div class="option-title">Shared Bell Tent – £280</div>
+                                        <div class="option-description">Team up with another couple? Two double beds, fire pit. Double trouble.</div>
+                                    </div>
+                                </div>
+                                <a href="https://chalkevalleycamping.co.uk/bell-tents/" target="_blank" class="more-info-btn">More Info</a>
+                            </label>
+                            
+                            <label class="radio-option accommodation-option">
+                                <div class="radio-content">
+                                    <input type="radio" name="accommodation" value="Bring My Own Tent - Free">
+                                    <div>
+                                        <div class="option-title">Bring My Own Tent</div>
+                                        <div class="option-description">Old school camping. BYOT. Gratis.</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <label for="dietary">Dietary Requirements</label>
+                        <input type="text" id="dietary" name="dietary" placeholder="Any allergies or preferences?">
+                        
+                        <div id="sharingWithSection" style="display: none;">
+                            <label for="sharingWith">Who are you sharing with? *</label>
+                            <input type="text" id="sharingWith" name="sharingWith" placeholder="Names of the other couple">
+                        </div>
+                        
+                        <label for="notes">Additional Notes</label>
+                        <input type="text" id="notes" name="notes" placeholder="Anything else we should know?">
+                    </div>
+                    
+                    <button type="submit" id="submitBtn">Submit RSVP</button>
+                </form>
+            </div>
+        </div>
+        
+        <div id="successMessage" class="success-message">
+            <div class="emoji">🎯</div>
+            <h2>Splendid!</h2>
+            <p>Your RSVP has been received.<br><br>
+            <span id="successText">Pack your tweeds and your sense of adventure.<br>
+            Looking forward to celebrating with you.</span></p>
+        </div>
+        
+        <div id="errorMessage" class="error-message">
+            <div class="emoji">🔥</div>
+            <h2>Blast!</h2>
+            <p>Something went awry. Please try again<br>or contact Freddy directly.</p>
+            <button onclick="location.reload()">Try Again</button>
+        </div>
+    </div>
+    
+    <script>
+        // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby0Hgb-Y2bkprBnCfZUk0MzJgFRmdDwtaNaIB66EPg1k5OIO-g3ELv3jHUOVuqaxQfn/exec';
+        
+        // Handle attendance selection to show/hide accommodation
+        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+        const accommodationSection = document.getElementById('accommodationSection');
+        const accommodationRadios = document.querySelectorAll('input[name="accommodation"]');
+        
+        attendanceRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === "Yes, I'll be there") {
+                    accommodationSection.classList.add('show');
+                    // Make accommodation required
+                    accommodationRadios.forEach(r => r.required = true);
+                } else {
+                    accommodationSection.classList.remove('show');
+                    // Make accommodation not required
+                    accommodationRadios.forEach(r => {
+                        r.required = false;
+                        r.checked = false;
+                    });
+                }
+            });
+        });
+        
+        // Add visual feedback for radio selection
+        document.querySelectorAll('.radio-option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                // Don't trigger if clicking the "More Info" button
+                if (e.target.classList.contains('more-info-btn')) {
+                    return;
+                }
+                
+                const radio = this.querySelector('input[type="radio"]');
+                const groupName = radio.name;
+                
+                // Remove selected class from all options in this group
+                document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => {
+                    r.closest('.radio-option').classList.remove('selected');
+                });
+                
+                this.classList.add('selected');
+                radio.checked = true;
+                
+                // Trigger change event for attendance
+                if (groupName === 'attendance') {
+                    radio.dispatchEvent(new Event('change'));
+                }
+                
+                // Show/hide sharing field for Shared Bell Tent
+                if (groupName === 'accommodation') {
+                    const sharingSection = document.getElementById('sharingWithSection');
+                    const sharingInput = document.getElementById('sharingWith');
+                    
+                    if (radio.value === 'Shared Bell Tent - £280') {
+                        sharingSection.style.display = 'block';
+                        sharingInput.required = true;
+                    } else {
+                        sharingSection.style.display = 'none';
+                        sharingInput.required = false;
+                        sharingInput.value = '';
+                    }
+                }
+            });
+        });
+        
+        // Prevent radio selection when clicking More Info button
+        document.querySelectorAll('.more-info-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+        
+        // Form submission handler
+        document.getElementById('guestForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span>Sending...';
+            
+            // Get attendance
+            const attendance = document.querySelector('input[name="attendance"]:checked').value;
+            const isAttending = attendance === "Yes, I'll be there";
+            
+            // Collect form data
+            const formData = {
+                timestamp: new Date().toLocaleString('en-GB', { 
+                    timeZone: 'Europe/London',
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }),
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                attendance: attendance,
+                accommodation: isAttending ? document.querySelector('input[name="accommodation"]:checked').value : 'N/A',
+                sharingWith: isAttending && document.getElementById('sharingWith').value ? document.getElementById('sharingWith').value : '',
+                dietary: isAttending ? document.getElementById('dietary').value : '',
+                notes: document.getElementById('notes').value
+            };
+            
+            try {
+                // Send to Google Sheets
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // Update success message based on attendance
+                const successText = document.getElementById('successText');
+                if (!isAttending) {
+                    successText.innerHTML = "Sorry you can't make it.<br>You'll be missed.";
+                }
+                
+                // Show success message
+                document.getElementById('rsvpForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // Show error message
+                document.getElementById('rsvpForm').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
